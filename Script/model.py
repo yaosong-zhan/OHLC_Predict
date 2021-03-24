@@ -43,6 +43,9 @@ class Model():
         print('[Model] %s epochs, %s batch size' % (epochs, batchSize))
 
         saveName = os.path.join(saveDir, '%s-e%s.h5' % (dt.datetime.now().strftime('%d%m%Y-%H%M%S'), str(epochs)))
+        callbacks = [
+            EarlyStopping(monitor='val_loss', patience=2),
+            ]
 
         self.model.fit(x, y, epochs = epochs, batch_size = batchSize, callbacks = callbacks)
         self.model.save(saveName)

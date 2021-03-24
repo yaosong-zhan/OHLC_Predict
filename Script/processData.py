@@ -17,7 +17,7 @@ class ProcessData(object):
         dataY = []
 
         for i in range(self.testLen - seqLen):
-            windows = self.dataTrain[i:i+seqLen]
+            windows = self.dataTest[i:i+seqLen]
             x = windows[:, :-1]
             y = windows[-1, -1]
             dataX.append(x)

@@ -6,7 +6,7 @@
             "openChange",
             "highChange",
             "lowChange",
-			"VolumeChange",
+			"volumeChange",
             "label"
 		],
 		"sequence_length": 20,
