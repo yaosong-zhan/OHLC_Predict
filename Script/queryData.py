@@ -1,3 +1,5 @@
+import pandas as pd
+
 class QueryData(object):
 
     def __init__(self):
@@ -9,6 +11,7 @@ class QueryData(object):
     def download(self, sqll):
         pass
 
-    def readlocal(self, filename):
-        pass
+    def readlocal(self, filename, filetype = 'csv'):
+        if filetype == 'csv':
+            return pd.read_csv(filename)
 
