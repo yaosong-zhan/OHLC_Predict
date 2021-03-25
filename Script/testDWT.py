@@ -2,16 +2,20 @@
 import pandas as pd
 import numpy as np
 from queryData import QueryData
-from dtaidistance import dtw
+# from dtaidistance import dtw
+import dtw
 import sklearn.cluster as skc
 from sklearn.preprocessing import normalize
+import matplotlib.pyplot as plt
 # %% Define the DTW distance when the sample has multiple curves
+manhattan_distance = lambda x, y: np.abs(x - y)
 
 def distance(curve1, curve2):
     dim = 4
     dist = 0
     for idx in range(dim):
-        dist = dtw.distance(curve1[idx*20:(idx+1)*20], curve2[idx:(idx+1)*20]) + dist
+        d, cost_matrix, acc_cost_matrix, path = dtw.dtw(curve1[idx*20:(idx+1)*20], curve2[idx:(idx+1)*20], dist = manhattan_distance)
+        dist = d + dist
     
     return dist
 
@@ -42,5 +46,8 @@ mulCurves[:,3*numdays:4*numdays] = varlist['Low']
 
 # %% Cluster analysis
 
-clusters = skc.DBSCAN(min_samples=50, metric=distance, eps=0.02, p=1).fit(mulCurves)
+clusters = skc.DBSCAN(min_samples=100, metric=distance, eps=0.02, p=1).fit(mulCurves)
+# %%
+
+d, cost_matrix, acc_cost_matrix, path = dtw.dtw(curve1[0*20:(3+1)*20], curve2[0:(3+1)*20], dist = manhattan_distance)
 # %%
